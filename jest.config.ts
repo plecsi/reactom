@@ -1,6 +1,6 @@
 export default {
   displayName: 'react',
-  preset: './jest.preset.js',
+  preset: './jest.preset.cjs',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
@@ -10,5 +10,7 @@ export default {
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.[jt]s?(x)',
     '<rootDir>/src/**/*(*.)@(spec|test).[jt]s?(x)',
+    '<rootDir>/core/**/__tests__/**/*.[jt]s?(x)',
+    '<rootDir>/core/**/*(*.)@(spec|test).[jt]s?(x)',
   ],
 };
