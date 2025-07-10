@@ -1,1 +1,0 @@
-export {default as fetchUserProfileApi} from './api'
