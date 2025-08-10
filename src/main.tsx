@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import * as ReactDOM from 'react-dom/client';
 import App from './app/app';
 import { Provider } from 'react-redux';
-import { entityStore, LanguageProvider } from '@react/core';
+import { entityStore, LanguageProvider, ToastProvider } from '@react/core';
 
 console.log('Entity Store:', entityStore);
 
@@ -22,14 +22,16 @@ function StoreLogger() {
 }
 
 root.render(
-  <StrictMode>
+  <>
     <Provider store={entityStore}>
       <StoreLogger />
       <LanguageProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ToastProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ToastProvider>
       </LanguageProvider>
     </Provider>
-  </StrictMode>
+  </>
 );

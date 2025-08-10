@@ -6,7 +6,7 @@ export function Modules() {
     <div className={styles['container']}>
       <h1>Welcome to Modules!</h1>
       <form>
-        <Fields />
+        {/*<Fields />*/}
       </form>
     </div>
   );

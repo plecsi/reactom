@@ -11,7 +11,8 @@ interface LanguageProviderProps {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const dispatch = useDispatch();
-  const locale = useSelector(selectLocale);
+  const locale = useSelector(selectLocale);// Fallback to 'en' if locale is not set in store
+
   const [messages, setMessages] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
 
@@ -28,20 +29,22 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   }, [dispatch, locale]);
 
   useEffect(() => {
-    if (!locale) return;
+    //if (!locale) return;
     setLoading(true);
     LanguageService.getTranslations(locale)
       .then((msgs) => {
-        console.log('Locale:', locale);
-        console.log('Messages:', msgs);
         setMessages(msgs);
+      })
+      .catch(() => {
+        console.log('Failed to load messages for locale:', locale);
+        setMessages({})
       })
       .finally(() => setLoading(false));
   }, [locale]);
 
-  if (loading) return <div>Loading...</div>;
+  //if (loading) return <div>Loading...</div>;
 
-  console.log('messages',messages)
+  console.log('LanguageProvider messages:', messages);
 
   return (
     <IntlProvider locale={locale || 'en'} messages={messages} defaultLocale="en">

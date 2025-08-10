@@ -1,19 +1,4 @@
-import { UserProfile } from './types';
-import { generateEntityApi } from '../../store/utils/api';
-import { apiGet } from '../../api/apiServices';
+import { generateAuthApi, generateEntityApi } from '../../store/api';
+import { UserProfile, UserProfileInput } from './types';
 
-//<UserProfile['id'], UserProfile, false>
-
-/*const fetchUserProfileApiOptions = generateEntityApi({
-  path: 'data',
-  includeDisplayContext: true,
-  includeEditContext: true,
-  validate: true,
-})*/
-
-const fetchUserProfileApi = (): Promise<UserProfile[]> => {
-  return apiGet<UserProfile[]>('users');
-};
-
-//export const fetchUserProfileApi = fetchUserProfileApiOptions;
-export default fetchUserProfileApi;
+export const userApi = generateAuthApi();

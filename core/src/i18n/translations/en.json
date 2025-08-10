@@ -1,5 +1,9 @@
 {
   "admin.form.submit": "Submit kecske",
   "admin.form.cancel": "Cancel kecske",
-  "default.welcome": "welcome"
+  "admin.FormBuilder.savedForms": "Saved Forms",
+  "default.welcome": "welcome",
+  "default.edit": "Edit",
+  "default.delete": "Delete",
+  "default.save": "Save"
 }

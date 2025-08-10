@@ -1,2 +1,2 @@
 
-export {default as Fields} from './valami';
+export {default as Fields} from './TextField/TextField';

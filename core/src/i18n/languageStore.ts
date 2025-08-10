@@ -14,6 +14,7 @@ const languageSlice = createSlice({
   initialState,
   reducers: {
     setLocale(state, action: PayloadAction<string>) {
+      //console.log('Setting locale:', action.payload);
       state.locale = action.payload;
     },
   },
@@ -21,6 +22,6 @@ const languageSlice = createSlice({
 
 export const { setLocale } = languageSlice.actions;
 
-export const selectLocale = (state: RootState) => state.language.locale;
+export const selectLocale = (state: any) => state.language.locale;
 
 export default languageSlice.reducer;

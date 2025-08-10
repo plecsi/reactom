@@ -1,6 +1,9 @@
 import { FormControl } from './FormControl';
+import styles from './index.module.scss'
+
 
 type TextFieldProps = {
+  id: string;
   name: string;
   label: string;
   value: string;
@@ -9,17 +12,19 @@ type TextFieldProps = {
   error?: string;
 };
 
-export const TextField = ({ name, label, value, onChange, placeholder, error }: TextFieldProps) => (
+export const TextField = ({ id, name, label, value, onChange, placeholder, error }: TextFieldProps) => (
   <FormControl label={label} htmlFor={name}>
     <input
       type="text"
-      id={name}
+      id={id}
       name={name}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
       aria-invalid={!!error}
       aria-describedby={error ? `${name}-error` : undefined}
+      autoComplete="off"
+      className={styles.input}
     />
     {error && <span id={`${name}-error`} className="error">{error}</span>}
   </FormControl>

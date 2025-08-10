@@ -1,28 +1,26 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserProfile } from './types';
+import { createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
+import { UserProfile, UserState } from './types';
 
-interface UserProfileState {
-  data?: UserProfile[];
-  loading: boolean;
-  error?: string;
-}
-
-const initialState: UserProfileState = { data: undefined, loading: false };
+const initialState: UserState = { user: null, loading: false, error: null };
 
 export const userProfileSlice = createSlice({
   name: 'userProfile',
   initialState,
   reducers: {
-    fetchStart(state) {
+    userRequest(state: Draft<UserState>) {
       state.loading = true;
-      state.error = undefined;
+      state.error = null;
     },
-    fetchSuccess(state, action: PayloadAction<UserProfile>) {
+    userRequestSuccess(
+      state: Draft<UserState>,
+      action: PayloadAction<UserProfile>
+    ) {
       console.log('HOPP success', action.payload);
-      state.data = [action.payload];
+      state.user = [action.payload];
       state.loading = false;
+      state.error = null;
     },
-    fetchError(state, action: PayloadAction<string>) {
+    userRequestFailure(state: Draft<UserState>, action: PayloadAction<string>) {
       console.log('HOPP error', action.payload);
       state.loading = false;
       state.error = action.payload;
@@ -31,4 +29,5 @@ export const userProfileSlice = createSlice({
 });
 
 export const userProfileActions = userProfileSlice.actions;
+export const {userRequest,userRequestSuccess, userRequestFailure } = userProfileSlice.actions
 export default userProfileSlice.reducer;

@@ -7,4 +7,16 @@ export default defineMessages({
     id: `${scope}.welcome`,
     defaultMessage: 'welcome',
   },
+  edit: {
+    id: `${scope}.edit`,
+    defaultMessage: 'Edit',
+  },
+  delete: {
+    id: `${scope}.delete`,
+    defaultMessage: 'Delete',
+  },
+  save: {
+    id: `${scope}.save`,
+    defaultMessage: 'Save',
+  },
 });

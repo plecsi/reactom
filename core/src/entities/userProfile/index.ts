@@ -1,1 +1,5 @@
-export {default as fetchUserProfileApi} from './api'
+export * from './api'
+export * from './saga'
+export * from './selectors'
+export * from './slice'
+export * from './types'

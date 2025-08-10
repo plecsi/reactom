@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event';
 const TestComponent = () => {
   const { locale, translations, setLocale, loading } = useLanguage();
 
-  if (loading) return <div>Loading...</div>;
+//  if (loading) return <div>Loading...</div>;
 
   return (
     <div>

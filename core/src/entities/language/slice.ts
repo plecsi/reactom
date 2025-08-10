@@ -28,7 +28,7 @@ export const languageSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    set(state, action: PayloadAction<Language>) {
+    setLocale(state, action: PayloadAction<Language>) {
       state.data = action.payload;
     },
   },
@@ -36,3 +36,4 @@ export const languageSlice = createSlice({
 
 export const languageActions = languageSlice.actions;
 export default languageSlice.reducer;
+export const languageSliceKey = languageSlice.name;

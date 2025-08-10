@@ -1,41 +1,30 @@
-// core/src/store/store.ts
-import { combineReducers, configureStore, ReducersMapObject } from '@reduxjs/toolkit';
-import createSagaMiddleware, { Saga } from 'redux-saga';
-import { createInjectorsEnhancer } from 'redux-injectors';
+import { StoreService } from './StoreService';
+import languageReducer from '../i18n/languageStore';
+import toastReducer from '../Toast/slice';
+import { languageSaga } from '../entities/language/saga';
+import { all, takeLatest } from 'redux-saga/effects';
+import { watchAddToast } from '../Toast';
+import { authSaga } from '../newAuth';
+import authReducer from '../newAuth/auth.slice';
 
-export function createAbstractStore<S>({
-  rootReducers,
-  rootSaga,
-}: {
-  rootReducers: ReducersMapObject<S>;
-  rootSaga: Saga;
-}) {
-  const sagaMiddleware = createSagaMiddleware();
-  const { run: runSaga } = sagaMiddleware;
-
-  // Dinamikusan frissülő reducer objektum
-  let injectedReducers = { ...rootReducers };
-
-  const createReducer = () => combineReducers(injectedReducers);
-
-
-  const store = configureStore({
-    reducer: createReducer(),
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware),
-    devTools: process.env.NODE_ENV !== 'production',
-    enhancers: (getDefaultEnhancers) =>
-      getDefaultEnhancers({}).concat([
-        createInjectorsEnhancer({
-          createReducer: () => rootReducers,
-          runSaga,
-        }),
-      ]) as never,
-  });
-
-  sagaMiddleware.run(rootSaga);
-
-  return store;
+function* rootSaga() {
+  yield all([
+    languageSaga(),
+    authSaga(),
+    watchAddToast(),
+  ]);
 }
 
+const storeService = StoreService.getInstance();
 
+// Regisztrálj statikus reducer-t
+storeService.registerStaticReducer('language', languageReducer);
+storeService.registerStaticReducer('auth', authReducer);
+storeService.registerStaticReducer('toast', toastReducer);
+
+// Ha vannak egyedi middleware-ek, regisztráld őket
+// storeService.registerMiddleware(customMiddleware);
+
+const store = storeService.createStore(rootSaga);
+
+export default store;

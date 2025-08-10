@@ -1,4 +1,5 @@
 import { i18nConfig } from './config';
+// @ts-ignore
 import en from './translations/en.json';
 
 export const LanguageService = {
@@ -17,7 +18,9 @@ export const LanguageService = {
 
   async getTranslations(locale: string): Promise<Record<string, string>> {
     try {
+      //console.log('BEJÖN!!!')
       const messages = await import(`./translations/${locale}.json`);
+     // console.log("KECSKE translation", messages, locale)
       return messages.default || messages;
     } catch {
       return en.default || en;

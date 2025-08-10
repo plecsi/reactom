@@ -5,6 +5,7 @@ import { Language } from './types';
 
 function* fetchLanguageWorker() {
   try {
+    console.log('SAGA fetchLanguageWorker called');
     yield put(languageActions.fetchStart());
     const data: Language = yield call(fetchLanguageApi);
     console.log('SAGA data: ', data);
@@ -15,11 +16,11 @@ function* fetchLanguageWorker() {
   }
 }
 
-function* setLanguageWorker(action: ReturnType<typeof languageActions.set>) {
+function* setLanguageWorker(action: ReturnType<typeof languageActions.setLocale>) {
   localStorage.setItem('language', JSON.stringify(action.payload));
 }
 
 export function* languageSaga() {
-  yield takeLatest('language/fetch', fetchLanguageWorker);
-  yield takeLatest('language/set', setLanguageWorker);
+  yield takeLatest(languageActions.fetchStart.type, fetchLanguageWorker);
+  yield takeLatest(languageActions.setLocale.type, setLanguageWorker);
 }
